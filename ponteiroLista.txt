@@ -1,0 +1,14 @@
+#include <stdio.h>
+void rte(int r[]){
+    int *p;
+    int n=sizeof(r)/sizeof(r[0]);
+    for(int c=0;c<n;c++){
+        p=&r[c];
+        printf("p = %d ",p);
+    }
+}
+int main() {
+    int k[]={4,8,7,6,1,2,14,7,45,6};
+    rte(k);
+    return 0;
+}

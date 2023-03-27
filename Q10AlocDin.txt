@@ -1,0 +1,30 @@
+#include <stdio.h>
+#include <conio.h>
+#include <stdlib.h>
+double * aloca(int *erro,int tam, int *it){
+    double *a;
+    *erro=0;
+    if(tam>10){
+     a = (double *) malloc(sizeof(double)*tam);
+     *(a + *it)= rand()%100;
+     *(it)++;
+    }else{
+        *erro=1;
+        printf("Apareceu %d erro(s)",*erro);
+    }
+    
+}
+void print_int(double *p, int tamanho){
+    for(int c=0;c<tamanho;c++)
+       printf("%lf ",*(p+c));
+}
+int main(){
+    double *h1;
+    int *erro,tam,*it=0;
+    scanf("%d",&tam);
+    for(int i = 0;i<tam;i++){
+        h1 = aloca(&erro,tam,&it);
+    }
+    print_int(h1,tam);
+    return 0;
+}

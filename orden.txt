@@ -1,0 +1,23 @@
+int menor(int y[], int n){
+    if(n==1){
+        return l[0];
+    }if(l[n]<menor(y[n-1])){
+        return l[n];
+    }else{
+        return menor(y[n-1]);
+    }
+}
+int * Ordenar(int l[]){
+    int n=sizeof(l)/sizeof(l[0]);
+    if(n==1){
+        return l[0];
+    }
+    if(l[n-1]>menor(l[],n-1)){
+        
+    }
+}
+int main()
+{
+
+    return 0;
+}

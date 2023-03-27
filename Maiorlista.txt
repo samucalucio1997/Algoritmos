@@ -1,0 +1,20 @@
+void maior(int r[], int n){
+    int ma;
+    for(int c=0;c<n;c++){
+        ma=r[c];
+        for(int i=1;i<n;i++){
+            if(ma>r[i]){
+                continue;     
+            }else{
+                ma=r[i];
+            }
+        }
+    }
+    printf("%d", ma);
+}
+int main(){
+    int teq[]={5,2,45,3,7,65,8,6};
+    int n = sizeof(teq)/sizeof(teq[0]);
+    maior(teq,n);
+    return 0;
+}

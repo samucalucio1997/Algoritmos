@@ -1,0 +1,31 @@
+#include <stdio.h>
+#include <stdlib.h>
+int main(){
+    int k[100],n,*p,x,con=0;
+    int l[10];
+    p=malloc(n*sizeof(int));
+    printf("Tamanho:");
+    scanf("%d",&n);
+    printf("numero");
+    scanf("%d",&x);
+    for(int c=0;c<n;c++){
+        printf("escreva um valor:");
+        scanf("%d",p+c);
+    }
+    for(int i=0;i<n;i++){
+        if(*(p+i)%x==0){
+            l[i]=*(p+i);
+            con++;
+        }
+    }
+    printf("%d\n",con);
+    int tam=sizeof(l)/sizeof(l[0]);
+    printf("Os múltiplos de %d são:",x);
+    for(int k =0;k<tam;k++){
+        if(l[k]!=0){
+         printf("%d ",l[k]);
+        }
+    }
+    
+    return 0;
+}

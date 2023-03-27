@@ -1,0 +1,18 @@
+int gasto(int comp, int dis, int a, int preco){
+    int total,qtd,pr;
+    qtd=comp/dis;
+    pr=a*comp;
+    total=qtd*preco + pr;
+    return total;
+}
+int main(){ 
+   int total, comp, dis,a, preco;
+   scanf("%d",&comp);
+   scanf("%d",&dis);
+   scanf("%d",&a);
+   scanf("%d",&preco);
+   
+   total=gasto(comp,dis,a,preco);
+   printf("%d\n",total);
+    return 0;
+}

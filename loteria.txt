@@ -1,0 +1,33 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdbool.h>
+int main(){ 
+    int *p,b,con=0;
+    int lot[6]={14,15,89,46,27,72};
+    p = malloc(6*sizeof(int));
+    for(int c=0;c<6;c++){
+        scanf("%d",&b);
+        *(p+c)=b;
+        for(int i=0;i<6;i++){
+            if(*(p+c)==lot[i]){
+                con++;
+            }
+        }
+         printf("%d ",lot[c]);
+    }
+    int *cor;
+    cor = malloc(con*sizeof(int));
+    printf("numeros corretos:\n");
+    for(int y=0;y<6;y++){
+        for(int i=0;i<6;i++){
+            if(*(p+y)==lot[i]){
+                *(cor+y)=*(p+y);
+            }
+        }
+        if(*(cor+y)!=0)
+         printf("%d ",*(cor+y));
+    }
+    printf("\n");
+    printf("foram %d corretos ",con);
+}
+#aula alocação dinamica na prática:19:41

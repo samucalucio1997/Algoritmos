@@ -1,0 +1,21 @@
+int primo(int n){
+    for(int c=2;c<n;c++){
+        if(n%c==0){
+            printf("%s","não primo");
+            break;
+        }else{
+            if(c==n-1){
+                printf("%s","é primo");
+                break;
+            }else{
+                continue;
+            }
+        }
+        return 0;
+    }
+}
+int main()
+{
+    printf("%d",primo(4139));
+    return 0;
+}

@@ -1,0 +1,25 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+int main(){
+    int n;
+    scanf("%d",&n);
+    char palavra[n];
+    char *pt = malloc(n*sizeof(char));
+    scanf("%s",pt);
+    char vogais[5]={'a','e','i','o','u'};
+    for(int c=0;c<n;c++){
+        for(int i=0;i<5;i++){
+            if(*(pt+c)==vogais[i]){
+                (pt+c)=strtok(NULL, vogais[i]);
+            }else{
+                continue;
+            }
+        }        
+    }
+    for(int k=0;k<n;k++)
+       printf("%c",*(pt + k));
+    
+    return 0;
+}

@@ -1,0 +1,18 @@
+#include <stdio.h>
+
+int main(){
+    int i, tam=0,e=100;
+    int arr[e];
+    int n;
+    scanf("%d",&n);
+    while(n!=-1){
+        arr[tam]=n;
+        tam++;
+        scanf("%d",&n);
+    }
+    for(int c=0;c<tam;c++){
+        int k = arr[c]==-1?0:arr[c];
+        printf("%d ",k);
+    }
+    return 0;
+}

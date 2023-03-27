@@ -1,0 +1,14 @@
+void ced(int m){
+    int a;
+    int arr[7] = {100,50,20,10,5,2,1};
+    for(int i=0;i<7;i++){
+        a=m/arr[i];
+        printf("%d notas de R$ %d\n",a,arr[i]);
+        m=m%arr[i];
+    }
+}
+int main(){
+    ced(576);
+
+    return 0;
+}

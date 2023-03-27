@@ -1,0 +1,36 @@
+#include <stdio.h>
+#include <stdlib.h>
+int * append_int(int *a, int *capacidade, int x, int *erro, int *tamanho){
+    if(*tamanho==*capacidade){
+        *erro = 1;
+        *capacidade = *capacidade + 10;
+      int *novo = (int *) malloc(sizeof(int)*(*capacidade));
+      int *antigo;
+      antigo=a;
+      for(int i=0;i<*tamanho;i++){
+          *(novo + i)=*(a+i);
+      }
+      a=novo;
+      free(antigo);
+    }
+    *(a + *tamanho)=x;
+    (*tamanho)++;
+    *erro=0;
+    return a;
+    
+}
+void print_int(int *p, int *tamanho){
+    for(int c=0;c<*tamanho;c++)
+       printf("%d ",*(p+c));
+}
+int main(){
+    int *p1,*capacidade, *tamanho=0, *erro;
+    *capacidade = 15;
+    p1 = (int *) malloc((*capacidade)*sizeof(int));
+    for(int i=0;i<25;i++){
+       p1 = append_int(p1,capacidade,i*5,erro,tamanho);
+    }
+    print_int(p1, tamanho);
+    // printf("%d ",&erro);
+    return 0;
+}

@@ -1,0 +1,29 @@
+int menor(int k[],int n){
+    if(n==1){
+        return k[0];
+    }
+    if(k[n-1]<menor(k,n-1)){
+        return k[n-1];
+    }else{
+        return menor(k,n-1);
+    }
+}
+int maior(int k[],int n){
+    if(n==1){
+        return k[0];
+    }
+    if(k[n-1]>maior(k,n-1)){
+        return k[n-1];
+    }
+    else{
+        return maior(k,n-1);
+    }
+}
+
+
+int main(){
+    int t[10]={1,8,5,3,4,9,11,23,6,7};
+    printf("%d\n", maior(t,10));
+    printf("%d",menor(t,10));
+    return 0;
+}
