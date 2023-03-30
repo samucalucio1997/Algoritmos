@@ -24,7 +24,7 @@ int main(){
   scanf("%d",&qtd);
   aluno->notas = (int *) malloc(sizeof(int)*qtd);
   aluno->pesos = (int *) malloc(sizeof(int)*qtd);
-  scanf("%i", aluno->matricula);
+  scanf("%d",&aluno->matricula);
   for(int i=0;i<qtd;i++){
     scanf("%d %d",&nota,&peso);
     inserir(peso,aluno,nota,i);
