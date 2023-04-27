@@ -58,8 +58,10 @@ void array_list_append(struct array_list *list,int p){
       if(list->capacity==list->size){
             array_list_increase_capacity(list);
       }
-      int i=0;
       list->data[list->size++]=p;
+}
+void pop(struct array_list *list){
+    list->size--;
 }
 int main(){
 struct array_list *list01 = array_list_create();
@@ -67,6 +69,7 @@ array_list_read_until(list01,-1);
 int k;
 scanf("%d",&k);
 array_list_append(list01,k);
+pop(list01);
 array_list_print(list01);
 printf("\n");
 free(list01->data);
