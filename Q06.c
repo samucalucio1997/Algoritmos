@@ -7,15 +7,13 @@ unsigned int capacity;
 };
 void array_list_increase_capacity(struct array_list *list){
 if(list->capacity==list->size){
-      list->capacity=list->capacity+10;
-      struct array_list *new_list = (struct array_list *) malloc(sizeof(struct array_list)*list->capacity);
-      struct array_list *antigo; 
-      antigo =list;
+      int *new_data = (int*)malloc(sizeof(int)*(list->capacity+10));
       for(int i=0;i<list->size;++i){
-           *(new_list->data + i)=*(list->data + i);
+           *(new_data + i)=*(list->data + i);
       }
-      list=new_list;
-      free(antigo);
+      list->data=new_data;
+      free(list->data);
+      list->capacity=list->capacity+10;
 }
 fprintf(stderr,"Error on memory allocation.\n");
 exit(-1);
@@ -63,15 +61,56 @@ void array_list_append(struct array_list *list,int p){
 void pop(struct array_list *list){
     list->size--;
 }
+struct array_list * array_list_clone(struct array_list *list){
+      struct array_list *copia = (struct array_list *) malloc(sizeof(struct array_list));
+      copia->capacity = list->capacity;
+      copia->size = list->size;
+      copia->data = (int *)malloc(sizeof(int)*(list->capacity));
+      for(int i=0;i<list->size;++i){
+            copia->data[i] = list->data[i];
+      }      
+      return copia;
+}
+unsigned int array_list_insert(struct array_list *list, int value, int index){
+       int y=0,x=0;
+      for(int i=index;i<list->size+1;++i){
+       if(i==index){
+        y=list->data[i];
+        list->data[i]=value;
+        continue;
+       }else{
+        x=list->data[i];
+        list->data[i]=y;
+        y=x;
+       }
+      }
+      return list->size++;
+}
+unsigned int array_list_remove(struct array_list *list,int index){
+    int x=0,y=0;
+    for(int i=list->size-1;i>=index;--i){
+         if(i==list->size-1){
+              y=list->data[i];
+              list->data[i]=0;
+              continue;
+         }else{
+            x=list->data[i];
+            list->data[i]=y;
+            y=x;
+         }
+    }
+    return list->size--;
+}
 int main(){
 struct array_list *list01 = array_list_create();
 array_list_read_until(list01,-1);
-int k;
-scanf("%d",&k);
-array_list_append(list01,k);
-pop(list01);
-array_list_print(list01);
+//array_list_print(list01);
+//printf("\n");
+struct array_list *copia;
+copia = array_list_clone(list01);
+array_list_remove(copia,4);
 printf("\n");
+array_list_print(copia);
 free(list01->data);
 free(list01);
 return 0;
