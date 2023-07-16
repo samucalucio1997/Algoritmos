@@ -20,7 +20,7 @@ return 0;
 /*########################################################*/
 struct array_list_int * array_list_create(){
 struct array_list_int *new_list;
-new_list = (struct array_list*)malloc(sizeof(struct array_list_int));
+new_list = (struct array_list_int*)malloc(sizeof(struct array_list_int));
 if (new_list==0){ /* Error */
 fprintf(stderr,"Error on memory allocation.\n");
 exit(-1);
@@ -33,6 +33,10 @@ fprintf(stderr,"Error on memory allocation.\n");
 exit(-1);
 }
 return new_list;
+}
+/*########################################################*/
+unsigned int array_list_size(struct array_list_int *list) {
+  return list->size;
 }
 /*########################################################*/
 void array_list_read_until(struct array_list_int *list, int end_reading){
@@ -58,18 +62,18 @@ printf(", %d",list->data[i]);
 printf("]");
 }
 /*########################################################*/
-int array_list_push_back(struct array_list_int *list,int p){
+unsigned int array_list_push_back(struct array_list_int *list,int p){
       int l = list->size;
       if(list->capacity==list->size){
-           if(!increase_memory){
-               return array_list_size(list);
+           if(!increase_memory(list)){ 
+            return array_list_size(list);
            } 
       }
       list->data[list->size++]=p;
       return array_list_size(list);
 }
 /*########################################################*/
-unsigned int pop_back(struct array_list_int *list){
+unsigned int array_list_pop_back(struct array_list_int *list){
     if(list->size>0){
      list->size--;
     }
@@ -77,23 +81,21 @@ unsigned int pop_back(struct array_list_int *list){
 }
 /*########################################################*/
 int array_list_find(struct array_list_int* list, int element) {
-  int i=0;
-  while(i>list->size){
+  int i=0,k=-1;
+  while(i<list->size){
       if(list->data[i]==element){
-      //     return 
+      //     printf("%d", list->data[i]);  
+          k=i;
+          break;
       }
+      i++;
   }
-  return -1;
+  return k;
 }
 /*########################################################*/
-unsigned int array_list_capacity(struct array_list_int* list) {
+unsigned int array_list_capacity(struct array_list_int *list) {
   return list->capacity;
 }
-/*########################################################*/
-unsigned int array_list_size(struct array_list_int* list) {
-  return list->size;
-}
-/*########################################################*/
 int array_list_get(struct array_list_int* list, int index, int* error) {
   *error = 0;
   if (index < 0 || index >= list->size) { /*Index must be valid*/
@@ -149,14 +151,20 @@ unsigned int array_list_remove_from(struct array_list_int *list,int index){
 int main(){
 struct array_list_int *list01 = array_list_create();
 array_list_read_until(list01,-1);
-//array_list_print(list01);
-//printf("\n");
-struct array_list_int *copia;
-copia = array_list_clone(list01);
-array_list_remove(copia,4);
+int ind=array_list_find(list01,5);
+printf("%d\n",ind);
+array_list_print(list01);
 printf("\n");
-array_list_print(copia);
-free(list01->data);
-free(list01);
+printf("%d ",array_list_size(list01));
+array_list_pop_back(list01);
+array_list_print(list01);
+array_list_remove_from(list01,4);
+printf("\n");
+array_list_print(list01);
+printf("\n");
+printf("%d\n",array_list_size(list01));
+array_list_insert_at(list01,684,3);
+array_list_print(list01);
+printf("\n%d\n",array_list_size(list01));
 return 0;
 }
