@@ -13,7 +13,7 @@ struct lig
 };
 typedef struct lig *lig;
 
-void inserir_final(lig li, int valor)
+void ll_push_back(lig li, int valor)
 {
   struct no_lig *pro = (struct no_lig *)malloc(sizeof(struct no_lig));
   pro->value = valor;
@@ -33,19 +33,20 @@ void inserir_final(lig li, int valor)
   li->last = pro;
   li->size++;
 }
-unsigned int inserir_indexado(lig li, int index, int valor)
+unsigned int ll_push_index(lig li, int index, int valor)
 {
   int con = 0;
   struct no_lig *per = li->first;
   struct no_lig *pro = (struct no_lig *)malloc(sizeof(struct no_lig));
   pro->value = valor;
-  while(con!=index){
-      per=per->next;
-      con++;
+  while (con != index)
+  {
+    per = per->next;
+    con++;
   }
-  pro->prev=per->prev;
-  per->prev=pro;
-  pro->next=per;
+  pro->prev = per->prev;
+  per->prev = pro;
+  pro->next = per;
   return ++li->size;
   // while(con!=po-1){
   //   per = per->next;
@@ -71,23 +72,32 @@ void ll_push_front(lig li, int value)
   new_node->value = value;
   if (li->first == 0)
   {
-    new_node->next = 0;
-    li->last = new_node;
+    new_node->prev=0;
+    new_node->next=0;
+    li->first=new_node;
+    li->last=new_node;
+    li->size=0; 
   }
   else
   {
-    new_node->next = li->first;
+    new_node->prev=0;
+    li->first->prev=new_node;
+    new_node->next=li->first;
+    li->first=new_node;
   }
   li->first = new_node;
+  li->size++;
 }
-int ll_getElement_ind(lig li, int index){
-    int con=0;
-    struct no_lig *node = li->first;   
-    while (con!=index){
-        node=node->next; 
-        con++;  
-    }
-    return node->value;
+int ll_getElement_ind(lig li, int index)
+{
+  int con = 0;
+  struct no_lig *node = li->first;
+  while (con != index)
+  {
+    node = node->next;
+    con++;
+  }
+  return node->value;
 }
 void destroy(lig li)
 {
@@ -104,6 +114,7 @@ int ll_pop_begin(lig li)
 {
   struct no_lig *lixo = li->first;
   li->first = li->first->next;
+  li->first->prev=0;
   free(lixo);
   if (li->first != lixo)
   {
@@ -117,15 +128,23 @@ int ll_pop_begin(lig li)
 
 int ll_pop_final(lig li)
 {
-  struct no_lig *cursor = li->first;
-  while (cursor->next != li->last)
-  {
-    cursor = cursor->next;
+  struct no_lig *lixo = li->last;
+  // while (cursor->next != li->last)
+  // {
+  //   cursor = cursor->next;
+  // }
+  li->last=lixo->prev;
+  li->last->next=0;
+  free(lixo);
+  if(li->last!=lixo){
+   return 1;
+  }else{
+    return 0;
   }
-  cursor->next = 0;
-  free(li->last);
-  li->last = cursor;
-  return 1;
+}
+
+int ll_pop_ind(lig li, int index){
+
 }
 
 struct lig *ll_create()
@@ -142,20 +161,17 @@ struct lig *ll_create()
 int main()
 {
   struct lig *list = ll_create();
-  int x, k;
-  scanf("%d", &x);
-  ll_push_front(list, x);
-  scanf("%d", &x);
-  while (x != 0)
-  {
-    inserir_final(list, x);
-    scanf("%d", &x);
-  }
+  int x,y;
+  scanf("%d",&x);
+  while (y != 0){
+    ll_push_back(list, y);
+    scanf("%d", &y);
+    }
   ll_write(list);
   ll_pop_begin(list);
   printf("\n %d", list->size);
   printf("\n");
-  printf("%d\n",ll_getElement_ind(list,3));
+  printf("%d\n", ll_getElement_ind(list, 3));
   ll_write(list);
   printf("\n");
   return 0;
