@@ -44,14 +44,14 @@ unsigned int ll_push_index(lig li, int index, int valor)
     per = per->next;
     con++;
   }
-  pro->prev = per->prev;
-  per->prev = pro;
   pro->next = per;
+  pro->prev = per->prev;
+  per->prev->next = pro;
+  per->prev = pro;
+  // pro->prev = per->prev;
+  // per->prev = pro;
+  // pro->next = per;
   return ++li->size;
-  // while(con!=po-1){
-  //   per = per->next;
-  // }
-  // per->next = pro;
 }
 void ll_write(lig li)
 { // write the elements
@@ -72,18 +72,18 @@ void ll_push_front(lig li, int value)
   new_node->value = value;
   if (li->first == 0)
   {
-    new_node->prev=0;
-    new_node->next=0;
-    li->first=new_node;
-    li->last=new_node;
-    li->size=0; 
+    new_node->prev = 0;
+    new_node->next = 0;
+    li->first = new_node;
+    li->last = new_node;
+    li->size = 0;
   }
   else
   {
-    new_node->prev=0;
-    li->first->prev=new_node;
-    new_node->next=li->first;
-    li->first=new_node;
+    new_node->prev = 0;
+    li->first->prev = new_node;
+    new_node->next = li->first;
+    li->first = new_node;
   }
   li->first = new_node;
   li->size++;
@@ -114,8 +114,9 @@ int ll_pop_begin(lig li)
 {
   struct no_lig *lixo = li->first;
   li->first = li->first->next;
-  li->first->prev=0;
+  li->first->prev = 0;
   free(lixo);
+  li->size--;
   if (li->first != lixo)
   {
     return 1;
@@ -125,26 +126,56 @@ int ll_pop_begin(lig li)
     return 0;
   }
 }
+unsigned int ll_int_size(lig li)
+{
+  return li->size;
+}
 
 int ll_pop_final(lig li)
 {
-  struct no_lig *lixo = li->last;
-  // while (cursor->next != li->last)
-  // {
-  //   cursor = cursor->next;
-  // }
-  li->last=lixo->prev;
-  li->last->next=0;
-  free(lixo);
-  if(li->last!=lixo){
-   return 1;
-  }else{
+  if (li->first == 0)
+  {
     return 0;
+  }
+  else
+  {
+    struct no_lig *lixo = li->last;
+    li->last = lixo->prev;
+    li->last->next = 0;
+    free(lixo);
+    li->size--;
+    if (li->last != lixo)
+    {
+      return 1;
+    }
+    else
+    {
+      return 0;
+    }
   }
 }
 
-int ll_pop_ind(lig li, int index){
-
+int ll_pop_ind(lig li, int index)
+{
+  int con = 0;
+  struct no_lig *trash = li->first;
+  while (con != index)
+  {
+    trash = trash->next;
+    con++;
+  }
+  trash->next->prev = trash->prev;
+  trash->prev->next = trash->next;
+  free(trash);
+  li->size--;
+  if (trash->value != 0)
+  {
+    return 0;
+  }
+  else
+  {
+    return 1;
+  }
 }
 
 struct lig *ll_create()
@@ -155,24 +186,32 @@ struct lig *ll_create()
   {
     new_list->first = 0;
     new_list->last = 0;
+    new_list->size = 0;
   }
   return new_list;
 }
 int main()
 {
   struct lig *list = ll_create();
-  int x,y;
-  scanf("%d",&x);
-  while (y != 0){
+  int x, y;
+  scanf("%d", &y);
+  while (y != 0)
+  {
     ll_push_back(list, y);
     scanf("%d", &y);
-    }
+  }
   ll_write(list);
-  ll_pop_begin(list);
-  printf("\n %d", list->size);
   printf("\n");
-  printf("%d\n", ll_getElement_ind(list, 3));
+  ll_pop_ind(list, 3);
+  printf("\n");
+  printf("%d\n", ll_int_size(list));
   ll_write(list);
+  printf("\n");
+  ll_push_index(list, 3, 1);
+  printf("%d ", ll_int_size(list));
+  printf("\n");
+  ll_write(list);
+  printf(" %d", list->size);
   printf("\n");
   return 0;
 }
