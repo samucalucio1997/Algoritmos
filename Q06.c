@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 struct array_list_int{
 int *data;
 unsigned int size;
@@ -11,8 +12,8 @@ if(list->capacity==list->size){
       for(int i=0;i<list->size;++i){
            *(new_data + i)=*(list->data + i);
       }
-      list->data=new_data;
       free(list->data);
+      list->data=new_data;
       list->capacity=list->capacity*2;
 }
 return 0;
@@ -150,21 +151,38 @@ unsigned int array_list_remove_from(struct array_list_int *list,int index){
 /*########################################################*/
 int main(){
 struct array_list_int *list01 = array_list_create();
-array_list_read_until(list01,-1);
-int ind=array_list_find(list01,5);
-printf("%d\n",ind);
-array_list_print(list01);
-printf("\n");
-printf("%d ",array_list_size(list01));
-array_list_pop_back(list01);
-array_list_print(list01);
-array_list_remove_from(list01,4);
-printf("\n");
-array_list_print(list01);
-printf("\n");
-printf("%d\n",array_list_size(list01));
-array_list_insert_at(list01,684,3);
-array_list_print(list01);
-printf("\n%d\n",array_list_size(list01));
+int n,i=0,x;
+time_t inicio, fim;
+scanf("%d ",&n);
+inicio = time(0);
+while(i!=n){
+   scanf("%d",&x);   
+   array_list_push_back(list01,x);
+   i++;
+}
+fim = time(0);
+array_list_insert_at(list01,54,90452);
+// array_list_print(list01);
+fprintf(stderr, "Essa operação durou %.10000lf milissegundos.\n",
+    (((double)fim - (double)inicio) / (CLOCKS_PER_SEC * 1000)));
+
+// array_list_read_until(list01,-1);
+
+
+// int ind=array_list_find(list01,5);
+
+// printf("%d\n",ind);
+// printf("\n");
+// printf("%d ",array_list_size(list01));
+// array_list_pop_back(list01);
+// array_list_print(list01);
+// array_list_remove_from(list01,4);
+// printf("\n");
+// array_list_print(list01);
+// printf("\n");
+// printf("%d\n",array_list_size(list01));
+// array_list_insert_at(list01,684,3);
+// array_list_print(list01);
+// printf("\n%d\n",array_list_size(list01));
 return 0;
 }
