@@ -139,8 +139,8 @@ int ll_pop_begin(array_list_int li)
 {
   struct no_lig *lixo = li->first;
   li->first = li->first->next;
-  li->first->prev = 0;
   free(lixo);
+  li->first->prev = 0;
   if (li->first != lixo)
   {
     return 1;
