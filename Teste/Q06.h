@@ -8,16 +8,16 @@ struct array_list_int
 };
 int increase_memory(struct array_list_int *list)
 { // array_list_increase_capacity
-      // if(list->capacity==list->size){
-      int *new_data = (int *)malloc(sizeof(int) * (list->capacity*2));
+      // if(list->capacity==list->size){     
+      int *new_data = (int *)malloc(sizeof(int) * (list->capacity+100));
       for (int i = 0; i < list->size; ++i)
       {
             *(new_data + i) = *(list->data + i);
-            printf("%d ", *list->data + i);
+            // printf("%d ", *list->data + i);
       }
       free(list->data);
       list->data = new_data;
-      list->capacity = list->capacity*2;
+      list->capacity = list->capacity+100;
       // }
       return 0;
 }
@@ -94,9 +94,13 @@ unsigned int array_list_pop_back(struct array_list_int *list)
       return array_list_size(list);
 }
 /*########################################################*/
+double array_list_percent_occupied(struct array_list_int *list){
+      return (list->size*100)/list->capacity;
+}
+/*########################################################*/
 int array_list_find(struct array_list_int *list, int element)
 {
-      int i = 0, k = -1;
+      int i = 0, k = 0;
       while (i < list->size)
       {
             if (list->data[i] == element)
@@ -107,7 +111,9 @@ int array_list_find(struct array_list_int *list, int element)
             }
             i++;
       }
-      return k;
+      if(k)
+        return k;
+      else return i-1;  
 }
 /*########################################################*/
 unsigned int array_list_capacity(struct array_list_int *list)
@@ -145,6 +151,7 @@ unsigned int array_list_insert_at(struct array_list_int *list, int value, int in
             increase_memory(list);
       }
       int y = 0, x = 0;
+      list->size++;   
       for (int i = index; i < list->size + 1; ++i)
       {
             if (i == index)
@@ -160,7 +167,7 @@ unsigned int array_list_insert_at(struct array_list_int *list, int value, int in
                   y = x;
             }
       }
-      return list->size++;
+      return array_list_size(list);
 }
 /*########################################################*/
 unsigned int array_list_remove_from(struct array_list_int *list, int index)

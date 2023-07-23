@@ -121,7 +121,19 @@ void destroy(array_list_int li)
     free(d);
   }
 }
-
+unsigned int array_list_find(array_list_int li,int element){
+       unsigned int con=0;
+       struct no_lig *node = li->first;
+       while (con!=li->size)
+       {
+         if(node->value==element){
+             break;
+         }
+         node=node->next;
+         con++;
+       }
+      return con;   
+}
 
 int ll_pop_begin(array_list_int li)
 {
@@ -187,22 +199,22 @@ struct array_list_int* array_list_create()
   return new_list;
 }
 
-int main()
-{
-  struct array_list_int *list = array_list_create();
-  int y;
-  scanf("%d", &y);
-  while (y != 0)
-  {
-    array_list_push_back(list, y);
-    scanf("%d", &y);
-  }
-  ll_write(list);
-  ll_pop_begin(list);
-  printf("\n %d", array_list_size(list));
-  printf("\n");
-  printf("%d\n", array_list_get(list, 3));
-  ll_write(list);
-  printf("\n");
-  return 0;
-}
+// int main()
+// {
+//   struct array_list_int *list = array_list_create();
+//   int y;
+//   scanf("%d", &y);
+//   while (y != 0)
+//   {
+//     array_list_push_back(list, y);
+//     scanf("%d", &y);
+//   }
+//   ll_write(list);
+//   ll_pop_begin(list);
+//   printf("\n %d", array_list_size(list));
+//   printf("\n");
+//   printf("%d\n", array_list_get(list, 3));
+//   ll_write(list);
+//   printf("\n");
+//   return 0;
+// }
