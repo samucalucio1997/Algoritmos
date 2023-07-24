@@ -174,7 +174,8 @@ int ll_pop_ind(array_list_int li, int index){
     int con=0;
     struct no_lig *trash = li->first;
     while(con!=index){
-      trash = trash->next;  
+      trash = trash->next; 
+      con++;
     }
     trash->next->prev=trash->prev;
     trash->prev->next=trash->next;
